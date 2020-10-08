@@ -82,7 +82,11 @@ WSGI_APPLICATION = 'pythonWORLDAPI.wsgi.application'
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-   
+        "NAME": "worldapi",
+        "USER": "postgres",
+        "PASSWORD": "localhost",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 

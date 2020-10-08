@@ -80,7 +80,21 @@ class Query(graphene.ObjectType):
             filter = Q(country_region=country_region)
             filtered = all_regions.filter(filter)
             
-        return filtered    
+        return filtered  
+
+    countrylanguage = graphene.List(
+        CountryLanguageType,
+        countrylanguage_countrycode=graphene.String()
+    )
+
+    def resolve_countrylanguage(self, info, countrylanguage_countrycode, **kwargs):
+        all_countrylanguage = CountryLanguage.objects.all()
+
+        if countrylanguage_countrycode:
+            filter = Q(countrylanguage_countrycode=countrylanguage_countrycode)
+            filtered = all_countrylanguage.filter(filter)
+            
+        return  CountryLanguage.objects.all()   
 
 class AddCity(graphene.Mutation):
     addCity = graphene.Field(CityType)
@@ -102,10 +116,6 @@ class AddCity(graphene.Mutation):
         city_population,
         **kwargs
     ):
-
-        # user = info.context.user
-        # if user.is_anonymous:
-        #     raise Exception("Not logged in!!")
 
         city = City(
             city_id = city_id,
@@ -131,10 +141,6 @@ class DeleteCity(graphene.Mutation):
         city_id,
         **kwargs
     ):
-
-        # user = info.context.user
-        # if user.is_anonymous:
-        #     raise Exception("Not logged in!!")
 
         city = City(
             city_id = city_id
