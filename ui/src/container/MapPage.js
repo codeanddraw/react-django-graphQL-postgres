@@ -13,6 +13,7 @@ import UpdateModal from '../component/Modal'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Map from 'collections/map';
+import Button from 'react-bootstrap/esm/Button';
 
 
 const Page = styled.div`
@@ -152,28 +153,12 @@ function MapPage() {
     show: false
   })
 
-  /* Get regions on map click */
-  const handleMapClick = continentCode => {
-
-    const GET_REGIONS = gql`
-          query {
-            countries(countryContinent:"${worldMap[continentCode]}"){
-            countryRegion,
-            countryCode
-          }
-        }`;
-    client.query({ query: GET_REGIONS }).then(result => {
-      const uniqueRegionList = [...new Set(result.data.countries.map(item => item.countryRegion))];
-      setState({
-        ...state,
-        selectedContinentCode: continentCode,
-        regionsList: uniqueRegionList,
-      })
-    });
-  }
-
   const toggleClose = item => setState({
     ...state,
+    selectedCity: null,
+    selectedCountry: null,
+    citiesMap: new Map(),
+    item: '',
     show: false
   })
 
@@ -185,12 +170,41 @@ function MapPage() {
     })
   }
 
+  /* ************************************************************ */
+  /* Get countries on map click 
+  /* ************************************************************ */
+  const handleMapClick = continentCode => {
+    const GET_REGIONS = gql`
+          query {
+            getAllCountries(countryContinent:"${worldMap[continentCode]}"){
+            countryRegion,
+            countryCode
+          }
+        }`;
+    client.query({ query: GET_REGIONS }).then(result => {
+      const uniqueRegionList = [...new Set(result.data.getAllCountries.map(item => item.countryRegion))];
+      setState({
+        ...state,
+        selectedContinentCode: continentCode,
+        selectedCountry: null,
+        selectedCity: null,
+        selectedRegion: null,
+        countriesMap: new Map(),
+        citiesMap: new Map(),
+        regionsList: uniqueRegionList,
+      })
+    });
+  }
+  
+  /* ************************************************************ */
+  /* Get regions on selected country  
+  /* ************************************************************ */
   function handleRegionClick(e) {
     let countryMap = new Map(),
-      selectedRegion = e.target.textContent
+        selectedRegion = e.target.textContent
     const GET_COUNTRIES = gql`
         query {
-            regions(countryRegion:"${e.target.textContent}"){
+            getAllRegions(countryRegion:"${e.target.textContent}"){
               countryName, 
               countryCode
             }
@@ -198,11 +212,11 @@ function MapPage() {
     client.query({
       query: GET_COUNTRIES
     }).then(result => {
-      result.data.regions.forEach(item => {
+      result.data.getAllRegions.forEach(item => {
         if (!countryMap.has(item.countryCode))
           return countryMap.set(item.countryCode, item.countryName)
       });
-      setState({
+    setState({
         ...state,
         selectedRegion: selectedRegion,
         selectedCountry: '',
@@ -213,13 +227,16 @@ function MapPage() {
     });
   }
 
+  /* ************************************************************ */
+  /* Get cities on selected country based on the country code
+  /* ************************************************************ */
   function handleCountryClick(e) {
     let countryCode = e.target.id,
-      selectedCountry = e.target.textContent,
-      cityMap = new Map()
+        selectedCountry = e.target.textContent,
+        cityMap = new Map()
     const GET_CITIES = gql`
             query{
-                allcities(cityCountrycode:"${countryCode}"){
+                getAllCities(cityCountrycode:"${countryCode}"){
                     cityId,
                     cityName,
                     cityCountrycode,
@@ -227,13 +244,12 @@ function MapPage() {
                     cityPopulation
                 }
           }`;
-
     client.query({ query: GET_CITIES }).then(result => {
-      result.data.allcities.forEach(item => {
+      result.data.getAllCities.forEach(item => {
         if (!cityMap.has(item.cityId))
           cityMap.set(item.cityId, [item.cityId, item.cityName, item.cityCountrycode, item.cityDistrict, item.cityPopulation])
       });
-      setState({
+    setState({
         ...state,
         selectedCountry: selectedCountry,
         citiesMap: cityMap,
@@ -293,12 +309,14 @@ function MapPage() {
               </Card>
 
               {/* Panel to show countries */}
+              {/* <Button type="primary">Get more info</Button> */}
               <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="1">
                   Countries filtered by selected region <b>{state.selectedRegion}</b> <span className="card-align">(Count:{state.countriesMap.size})</span>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
                   <Card.Body>
+                    Make a selection 
                     {
                       state.countriesMap.map(((item, val) =>
                         <ListGroup.Item id={val} onClick={handleCountryClick}>
@@ -317,7 +335,7 @@ function MapPage() {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="2">
                   <Card.Body>
-                    Add country language info
+                    Make a selection again
                     {state.citiesMap.map(((item, val) => <ListGroup.Item id={val} onClick={() => toggleShow(item)} >
                     {item[1]}   <span className="card-align">
                       <AiFillEdit onClick={toggleShow} />  |  <FaRegTrashAlt onClick={toggleShow} />
