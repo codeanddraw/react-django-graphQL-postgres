@@ -7,8 +7,7 @@ import { gql,useMutation  } from '@apollo/client';
 
 
 
-const Example=({show,handleClose,item}) =>{
-
+const UpdateModal=({show,handleClose,item}) =>{
     const [state, setState] = useState({
         id: item[0],
         name: item[1],
@@ -16,7 +15,6 @@ const Example=({show,handleClose,item}) =>{
         district: item[3],
         population: item[4]
       });
-    //const {id,name,code,district,population} = this.userRequest
     
     const SET_MUATATION = gql `
     mutation{
@@ -135,4 +133,4 @@ const Example=({show,handleClose,item}) =>{
     );
   }
   
-  export default Example;
+  export default UpdateModal;
