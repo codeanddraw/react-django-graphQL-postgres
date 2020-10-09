@@ -1,27 +1,31 @@
-# react-django-graphQL-postgres
+# Coding Challenge
 GraphQL API in Django
-- Nisha Chaube
+  - Nisha Chaube
 
+Method 1:
 ## Setting up using Docker
-Note: Below step may take some time
+Note: Below steps may take some time
 
-docker-compose up 
+    docker-compose up -d
 
-docker ps
+    docker ps
 
-<!-- Login to react-django-graphql-postgres_core image -->
+    <!-- Login to react-django-graphql-postgres_core image -->
 
-docker exec -it ####### /bin/bash
+    docker exec -it ####### /bin/bash
 
-python manage.py makemigrations
+    python manage.py makemigrations
 
-python manage.py migrate
+    python manage.py migrate
 
-python manage.py loaddata ./Fixtures/initial_data.json
+    python manage.py loaddata ./Fixtures/initial_data.json
 
-Django server url: http://127.0.0.1:8000/graphql/
-React frontend url: http://localhost:3000/
-
+    Django server url: http://127.0.0.1:8000/graphql/  <br />
+    React frontend url: http://localhost:3000/
+    
+    
+######################################################################
+Method 2:
 ## Setting up Python environment
 
 To get this project up and running you should start by having Python installed on your computer. It's advised you create a virtual environment to store your projects dependencies separately. You can install virtualenv with <br />
@@ -86,4 +90,15 @@ DATABASES = {
 
 ```SQL
 grant all privileges on database postgres to postgres
+```
+
+## Setting up Python environment
+<br />
+
+```
+cd ui
+
+npm install
+
+npm start
 ```
