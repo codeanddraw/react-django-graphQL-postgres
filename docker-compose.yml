@@ -1,0 +1,44 @@
+version: "3.6"
+   
+
+services:
+  db:
+      image: 'postgres'
+      ports:
+        - '5432'
+      networks:
+        some_network:
+      environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+  core:
+    build:
+      context: .
+      dockerfile: Dockerfile-api
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+    links:
+      - db:db
+    networks:
+      some_network:
+
+  client:
+    stdin_open: true
+    container_name: world-api-ui
+    build:
+      context: .
+      dockerfile: Dockerfile-ui
+    ports:
+      - "3000:3000"
+    volumes:
+      - "/app/node_modules"
+      - "./ui/:/app"
+      
+networks:
+  some_network:
