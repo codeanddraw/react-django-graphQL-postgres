@@ -5393,7 +5393,7 @@ ALTER TABLE worldapi_city
 RENAME name TO city_name;
 
 ALTER TABLE worldapi_city
-RENAME code TO city_code;
+RENAME countrycode TO city_countrycode;
 
 ALTER TABLE worldapi_city
 RENAME district TO city_district;
@@ -5462,7 +5462,7 @@ RENAME code2 TO country_code2;
 
 COMMIT;
 
-ANALYZE city;
-ANALYZE country;
-ANALYZE countrylanguage;
+ANALYZE worldapi_city;
+ANALYZE worldapi_country;
+ANALYZE worldapi_countrylanguage;
 
