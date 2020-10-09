@@ -22,7 +22,7 @@ class Country(models.Model):
     country_localname = models.TextField(default=None)
     country_governmentform = models.TextField(default=None)
     country_headofstate = models.TextField(null=True,blank=True)
-    country_capital = models.ForeignKey(City, on_delete=models.CASCADE,default=None,db_column='country_capital')
+    country_capital = models.ForeignKey(City, on_delete=models.CASCADE,default=None,db_column='country_capital',null=True)
     country_code2 = models.CharField(max_length=2,default=None)
 
 

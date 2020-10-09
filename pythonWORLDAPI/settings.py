@@ -25,7 +25,8 @@ SECRET_KEY = 'l#d#dw@5e$rrvpt_yelnnmqe4q($cepey=j(60sb((!p)4%a1&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#For development purpose only
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -80,13 +81,13 @@ WSGI_APPLICATION = 'pythonWORLDAPI.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "worldapi",
-        "USER": "postgres",
-        "PASSWORD": "localhost",
-        "HOST": "localhost",
-        "PORT": "5432",
+  'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
@@ -108,6 +109,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+FIXTURE_DIRS = (
+   '/react-django-graphQL-postgres/Fixtures/',
+)
 
 
 # Internationalization

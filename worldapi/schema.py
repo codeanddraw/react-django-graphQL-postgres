@@ -16,7 +16,7 @@ class CountryLanguageType(DjangoObjectType):
     class Meta:
         model = CountryLanguage
 
-
+# This class will defines get requests
 class Query(graphene.ObjectType):
     cities = graphene.List(
         CityType,
@@ -96,6 +96,7 @@ class Query(graphene.ObjectType):
             
         return  CountryLanguage.objects.all()   
 
+# This class will define post requests to update or add data
 class AddCity(graphene.Mutation):
     addCity = graphene.Field(CityType)
 
@@ -129,6 +130,7 @@ class AddCity(graphene.Mutation):
 
         return AddCity(addCity=city)
 
+# This class will defines delete request
 class DeleteCity(graphene.Mutation):
     deleteCity = graphene.Field(CityType)
 
