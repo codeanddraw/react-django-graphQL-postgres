@@ -3,8 +3,9 @@ GraphQL API in Django
 - Nisha Chaube
 
 ## Setting up using Docker
+Note: Below step may take some time
 
-docker-compose up -d --build
+docker-compose up 
 
 docker ps
 
@@ -18,8 +19,8 @@ python manage.py migrate
 
 python manage.py loaddata ./Fixtures/initial_data.json
 
-Django server url: 
-React frontend url:
+Django server url: http://127.0.0.1:8000/graphql/
+React frontend url: http://localhost:3000/
 
 ## Setting up Python environment
 
