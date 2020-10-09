@@ -66,13 +66,10 @@ sudo apt-get install libpq-dev python-dev
 sudo apt-get install postgresql postgresql-contrib
 ```
 
-### Install Postgresql **_Windows_**
 
-[Tutorial PostgreSQL windows](https://www.postgresqltutorial.com/install-postgresql/)
 
 ### Setup Database and User in PostgreSQL
 
-Based on these settings in [settings.py](/src/project/project/settings.py)
 
 ```python
 DATABASES = {
