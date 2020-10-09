@@ -7,6 +7,7 @@
 
 BEGIN;
 
+
 SET client_encoding = 'LATIN1';
 
 CREATE TABLE city (
