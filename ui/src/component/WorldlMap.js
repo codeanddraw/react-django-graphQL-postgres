@@ -25,7 +25,7 @@ export default class WorldMap extends React.Component {
 
     return <div className={className}>
       <ReactTooltip id="registerTip" place="top" effect="solid" getContent={(dataTip) => `Continent: ${dataTip}`} />
-      <svg className="map-img" xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 600 400" id="svg5249">
+      <svg className="map-img" xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 600 400" id="svg5249">
         <defs id="defs5257">
           <linearGradient id="linearGradient4299">
             <stop offset="0" id="stop4301" stopColor="#cc5252" />

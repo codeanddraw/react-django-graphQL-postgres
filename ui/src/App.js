@@ -11,7 +11,7 @@ function App() {
       <Route
         render={({ location }) => {
           return (
-            <Container fluid="md">
+            <Container>
               <TransitionGroup component={null}>
                 <CSSTransition
                   timeout={300}

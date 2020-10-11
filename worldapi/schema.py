@@ -63,14 +63,14 @@ class Query(graphene.ObjectType):
         return filtered  
 
     #################################################
-    # Get all countries by countinent
+    # Get all Regions by countinent
     ################################################# 
-    getAllCountries = graphene.List(
+    getAllRegions = graphene.List(
         CountryType,
         country_continent=graphene.String()
     )
 
-    def resolve_getAllCountries(self, info, country_continent, **kwargs):
+    def resolve_getAllRegions(self, info, country_continent, **kwargs):
         all_getAllCountries = Country.objects.all()
 
         if country_continent:
@@ -80,14 +80,14 @@ class Query(graphene.ObjectType):
         return filtered  
 
     #################################################
-    # Get all regions by country region
+    # Get all countries by country region
     ################################################# 
-    getAllRegions = graphene.List(
+    getAllCountries = graphene.List(
         CountryType,
         country_region=graphene.String()
     )
 
-    def resolve_getAllRegions(self, info, country_region, **kwargs):
+    def resolve_getAllCountries(self, info, country_region, **kwargs):
         all_getAllRegions = Country.objects.all()
 
         if country_region:
